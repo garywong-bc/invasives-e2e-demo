@@ -1,0 +1,20 @@
+{
+  "name": "invasives-e2e-demo",
+  "version": "1.0.0",
+  "description": "This repository is a starting point adding Cypress tests to InvasivesBC.",
+  "main": "index.js",
+  "scripts": {
+    "cypress": "cypress open",
+    "test:e2e": "cypress open"
+  },
+  "author": "Gary Wong <garywong@gov.bc.ca>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cypress": "^4.5.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3"
+  }
+}
