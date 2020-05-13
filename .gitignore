@@ -3,4 +3,4 @@ node_modules
 .vscode
 .eslintrc.json
 .prettierrc
-user.json
+cypress/fixtures/users/user.json
