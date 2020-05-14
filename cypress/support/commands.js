@@ -23,4 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// Cypress.Commands.add("guiLogin", (user: string) => {
+//   Cypress.log({ name: "Login" });
 import 'nrm-cypress-keycloak-commands'

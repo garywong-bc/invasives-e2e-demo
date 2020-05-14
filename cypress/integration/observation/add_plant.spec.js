@@ -1,19 +1,31 @@
-describe('/create/observation', () => {
+describe('/add', () => {
+  let base64_token;
+
   beforeEach(() => {
-    cy.kcLogout()
-    cy.kcLogin('user')
-    cy.visit('/')
-  })
+    cy.kcLogout();
+    cy.kcLogin().as('tokens');
+    // this should resolve to https://dev-invasivesbc.pathfinder.gov.bc.ca/profile
+    cy.get('@tokens').then((tokens) => {
+      base64_token = btoa(tokens.id_token);
+      cy.visit('/', {
+        headers: {
+          Authorization: `Bearer ${base64_token}`,
+        },
+      });
+    });
+  });
 
   it('navigates to xx on successful submission', () => {
-    setTimeout(function () {
-      console.log('Hello')
-    }, 9000)
+    cy.visit('/add', {
+      headers: {
+        Authorization: `Bearer ${base64_token}`,
+      },
+    });
 
-    cy.contains('a', 'InvasivesBC')
+    cy.contains('a', 'InvasivesBC');
     // cy.contains('input', 'Latitude').click()
     // cy.get('.error-messages').should('contain', "xxx can't be blank")
-  })
+  });
 
   // it('requires location', () => {
   //   cy.get('form').contains('Submit Observation').click()
@@ -30,4 +42,4 @@ describe('/create/observation', () => {
   // })
 
   // it('navigates to xx on successful submission', () => {})
-})
+});

@@ -47,13 +47,17 @@ added 213 packages from 203 contributors and audited 302 packages in 57.698s
 found 0 vulnerabilities
 ```
 
-npm install -D garywong-bc/nrm-cypress-keycloak-commands#feature/idp-hint
+npm install -D garywong-bc/nrm-cypress-keycloak-commands#feature/svc-client
+
+npm uninstall -D garywong-bc/nrm-cypress-keycloak-commands#feature/svc-client && npm uninstall -D garywong-bc/nrm-cypress-keycloak-commands && rm -rf node_modules/nrm-cypress-keycloak-commands
 
 ## Docker Test
 
 ## KeyCloak Setup
 
 - as per https://github.com/wpic/sample-keycloak-getting-token and https://smartling.github.io/keycloak/docs/1.2.1.Smartling-SNAPSHOT/reference/en-US/html_single/#direct-access-grants
+
+https://www.keycloak.org/docs/6.0/server_admin/#_service_accounts
 
 invasives-bc-e2e
 
