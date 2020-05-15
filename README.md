@@ -11,14 +11,6 @@ Alternatively, you may import the sample [KeyCloak Client](./sample.kc-client.js
 
 Note the Client ID and Client Secret (under the `Credentials` tab), as you'll need both for the next step,
 
-## Application Setup
-
-Customize the credentials for your application.
-
-- copy [sample.cypress.env.json](./sample.cypress.env.json) to `cypress.env.json`
-- set the variable values, including `auth_client_id` and `auth_client_secret` from the previous step
-- configure the `baseURL` for your application in the [config file](./cypress/plugins/index.js)
-
 ## Local Install
 
 Clone the repo, install dependencies and run Cypress tests
@@ -26,9 +18,16 @@ Clone the repo, install dependencies and run Cypress tests
 ```bash
 git clone git@github.com:garywong-bc/invasives-e2e-demo.git && cd invasives-e2e-demo
 npm install
-npm run test:e2e`
 ```
 
-## Docker Test
+### Application Setup
 
-TODO - Document how to run Cypress e2e tests through a docker container.
+Customize the credentials for your application.
+
+- copy [sample.cypress.env.json](./sample.cypress.env.json) to `cypress.env.json`
+- edit `cypress.env.json`, setting the variable values, including `auth_client_id` and `auth_client_secret` from the previous step
+- configure the `baseURL` for your application in the [config file](./cypress/plugins/index.js#L21)
+
+```bash
+npm run test:e2e
+```
