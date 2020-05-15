@@ -1,28 +1,17 @@
 describe('/add', () => {
-  const baseUrl = new URL(Cypress.config('baseUrl'));
-  const cookieDomain = baseUrl.hostname;
-  const cookieOptions = { log: false, domain: cookieDomain };
-  before(() => {
+  beforeEach(() => {
     cy.svcClientLogout();
     cy.svcClientLogin().as('tokens');
-
     cy.get('@tokens').then((tokens) => {
-      let tokenExpiryPOSIX = Date.now() + tokens.expires_in * 1000;
-      let expiryDate = new Date(tokenExpiryPOSIX);
-      let cookieExpiryUTC = expiryDate.toUTCString();
-      cy.setCookie('accessToken', tokens.access_token, cookieOptions);
-      cy.setCookie('accessTokenExpiery', cookieExpiryUTC, cookieOptions);
-
-      tokenExpiryPOSIX = Date.now() + tokens.refresh_expires_in * 1000;
-      expiryDate = new Date(tokenExpiryPOSIX);
-      cookieExpiryUTC = expiryDate.toUTCString();
-      cy.setCookie('refreshToken', tokens.refresh_token, cookieOptions);
-      cy.setCookie('refreshTokenExpiery', cookieExpiryUTC, cookieOptions);
-      // cy.visit({
-      //   url: '/',
-      // });
-      // cy.location('pathname').should('eq', '/profile');
+      cy.svcClientSetCookie(tokens);
     });
+  });
+
+  it('Redirects to Profile on successful login', () => {
+    cy.visit({
+      url: '/',
+    });
+    cy.location('pathname').should('eq', '/profile');
   });
 
   it('navigates to xx on successful submission', () => {
@@ -30,9 +19,47 @@ describe('/add', () => {
       url: '/add',
     });
 
-    // cy.contains('a', 'InvasivesBC');
     cy.contains('button', 'Invasive Plant Observation').click();
-    cy.get('[placeholder=Latitude]').type('123{enter}');
+    cy.get('[placeholder="Latitude"]').type('50.12345{enter}');
+    cy.get('[placeholder="Longitude"]').type('-120.12345{enter}');
+
+    cy.get('#geometryType').type('Point - Small area circle{enter}');
+
+    cy.get('#mat-input-2').type('100{enter}');
+    // since InvasivesBC auto-generates the form, it's better to select on Label rather than auto-generated
+    // ID field (example above)
+    cy.get('[placeholder="Length"]').type('100{enter}');
+    cy.get('[aria-label="Open calendar"]').click();
+    cy.get('.mat-calendar-previous-button').click();
+    cy.get('.mat-calendar-body-cell').contains('1').click();
+
+    cy.get('#mat-input-7').focus;
+    cy.get('#mat-input-7').type(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+    nisi ut aliquip ex ea commodo consequat.{enter}
+    `);
+
+    cy.get('#generalComment').type(`Duis aute irure dolor in reprehenderit in voluptate 
+    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+    sint occaecat cupidatat non proident, sunt in culpa qui officia 
+    deserunt mollit anim id est laborum.{enter}`);
+
+    cy.get('[placeholder="Observer First Name"]').type('John{enter}');
+    cy.get('[placeholder="Observer Last Name"]').type('Wile{enter}');
+
+    cy.get('[aria-label="Species"]').type("Baby's breath{enter}");
+
+    cy.get('#completedOnBehalfOf').type('Parks Canada{enter}');
+
+    cy.get('[aria-label="Jurisdiction"]').type('BC Hydro{enter}');
+
+    // cy.get('[placeholder=Longitude]').type('123{enter}');
+    // cy.get('[placeholder=Longitude]').type('123{enter}');
+    // cy.get('[placeholder=Longitude]').type('123{enter}');
+    // cy.get('[placeholder=Longitude]').type('123{enter}');
+    // cy.get('[placeholder=Longitude]').type('123{enter}');
+
     // cy.get('.mat-error').should('contain', 'Must be between 48 and 61');
   });
 

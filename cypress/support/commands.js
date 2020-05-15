@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 // Cypress.Commands.add("guiLogin", (user: string) => {
 Cypress.Commands.add('svcClientLogin', () => {
-  Cypress.log({ name: 'Login' });
+  Cypress.log({ name: 'KeyClock Login' });
   const authBaseUrl = Cypress.env('auth_base_url');
   const realm = Cypress.env('auth_realm');
   const client_id = Cypress.env('auth_client_id');
@@ -52,11 +52,31 @@ Cypress.Commands.add('svcClientLogin', () => {
 });
 
 Cypress.Commands.add('svcClientLogout', () => {
-  Cypress.log({ name: 'Logout' });
+  Cypress.log({ name: 'KeyClock Logout' });
   const authBaseUrl = Cypress.env('auth_base_url');
   const realm = Cypress.env('auth_realm');
 
   return cy.request({
     url: `${authBaseUrl}/realms/${realm}/protocol/openid-connect/logout`,
   });
+});
+
+Cypress.Commands.add('svcClientSetCookie', (tokens) => {
+  Cypress.log({ name: 'Set Application Cookie' });
+  const baseUrl = new URL(Cypress.config('baseUrl'));
+  const cookieDomain = baseUrl.hostname;
+  const cookieOptions = { log: true, domain: cookieDomain };
+
+  function getExpiryUTC(expires_in) {
+    let tokenExpiryPOSIX = Date.now() + expires_in * 1000;
+    let expiryDate = new Date(tokenExpiryPOSIX);
+    return expiryDate.toUTCString();
+  }
+
+  const accessTokenExpiry = getExpiryUTC(tokens.expires_in);
+  const refreshTokenExpiry = getExpiryUTC(tokens.refresh_expires_in);
+  cy.setCookie('accessToken', tokens.access_token, cookieOptions).debug;
+  cy.setCookie('refreshToken', tokens.refresh_token, cookieOptions).debug;
+  cy.setCookie('accessTokenExpiery', accessTokenExpiry, cookieOptions).debug;
+  cy.setCookie('refreshTokenExpiery', refreshTokenExpiry, cookieOptions).debug;
 });
