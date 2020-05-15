@@ -1,30 +1,39 @@
 describe('/add', () => {
-  let base64_token;
+  const baseUrl = new URL(Cypress.config('baseUrl'));
+  const cookieDomain = baseUrl.hostname;
+  const cookieOptions = { log: false, domain: cookieDomain };
+  before(() => {
+    cy.svcClientLogout();
+    cy.svcClientLogin().as('tokens');
 
-  beforeEach(() => {
-    cy.kcLogout();
-    cy.kcLogin().as('tokens');
-    // this should resolve to https://dev-invasivesbc.pathfinder.gov.bc.ca/profile
     cy.get('@tokens').then((tokens) => {
-      base64_token = btoa(tokens.id_token);
-      cy.visit('/', {
-        headers: {
-          Authorization: `Bearer ${base64_token}`,
-        },
-      });
+      let tokenExpiryPOSIX = Date.now() + tokens.expires_in * 1000;
+      let expiryDate = new Date(tokenExpiryPOSIX);
+      let cookieExpiryUTC = expiryDate.toUTCString();
+      cy.setCookie('accessToken', tokens.access_token, cookieOptions);
+      cy.setCookie('accessTokenExpiery', cookieExpiryUTC, cookieOptions);
+
+      tokenExpiryPOSIX = Date.now() + tokens.refresh_expires_in * 1000;
+      expiryDate = new Date(tokenExpiryPOSIX);
+      cookieExpiryUTC = expiryDate.toUTCString();
+      cy.setCookie('refreshToken', tokens.refresh_token, cookieOptions);
+      cy.setCookie('refreshTokenExpiery', cookieExpiryUTC, cookieOptions);
+      // cy.visit({
+      //   url: '/',
+      // });
+      // cy.location('pathname').should('eq', '/profile');
     });
   });
 
   it('navigates to xx on successful submission', () => {
-    cy.visit('/add', {
-      headers: {
-        Authorization: `Bearer ${base64_token}`,
-      },
+    cy.visit({
+      url: '/add',
     });
 
-    cy.contains('a', 'InvasivesBC');
-    // cy.contains('input', 'Latitude').click()
-    // cy.get('.error-messages').should('contain', "xxx can't be blank")
+    // cy.contains('a', 'InvasivesBC');
+    cy.contains('button', 'Invasive Plant Observation').click();
+    cy.get('[placeholder=Latitude]').type('123{enter}');
+    // cy.get('.mat-error').should('contain', 'Must be between 48 and 61');
   });
 
   // it('requires location', () => {
