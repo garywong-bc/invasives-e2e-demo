@@ -7,13 +7,6 @@ describe('/add', () => {
     });
   });
 
-  it('Redirects to Profile on successful login', () => {
-    cy.visit({
-      url: '/',
-    });
-    cy.location('pathname').should('eq', '/profile');
-  });
-
   it('navigates to xx on successful submission', () => {
     cy.visit({
       url: '/add',
@@ -34,16 +27,13 @@ describe('/add', () => {
     cy.get('.mat-calendar-body-cell').contains('1').click();
 
     cy.get('#mat-input-7').focus;
-    cy.get('#mat-input-7').type(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-    nisi ut aliquip ex ea commodo consequat.{enter}
+    cy.get('#mat-input-7')
+      .type(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.{enter}
     `);
 
-    cy.get('#generalComment').type(`Duis aute irure dolor in reprehenderit in voluptate 
-    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-    sint occaecat cupidatat non proident, sunt in culpa qui officia 
-    deserunt mollit anim id est laborum.{enter}`);
+    cy.get('#generalComment').type(
+      `Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.{enter}`,
+    );
 
     cy.get('[placeholder="Observer First Name"]').type('John{enter}');
     cy.get('[placeholder="Observer Last Name"]').type('Wile{enter}');

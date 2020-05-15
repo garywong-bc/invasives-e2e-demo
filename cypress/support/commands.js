@@ -75,8 +75,8 @@ Cypress.Commands.add('svcClientSetCookie', (tokens) => {
 
   const accessTokenExpiry = getExpiryUTC(tokens.expires_in);
   const refreshTokenExpiry = getExpiryUTC(tokens.refresh_expires_in);
-  cy.setCookie('accessToken', tokens.access_token, cookieOptions).debug;
-  cy.setCookie('refreshToken', tokens.refresh_token, cookieOptions).debug;
-  cy.setCookie('accessTokenExpiery', accessTokenExpiry, cookieOptions).debug;
-  cy.setCookie('refreshTokenExpiery', refreshTokenExpiry, cookieOptions).debug;
+  cy.setCookie('accessToken', tokens.access_token, cookieOptions);
+  cy.setCookie('refreshToken', tokens.refresh_token, cookieOptions);
+  cy.setCookie('accessTokenExpiery', accessTokenExpiry, cookieOptions);
+  cy.setCookie('refreshTokenExpiery', refreshTokenExpiry, cookieOptions);
 });
