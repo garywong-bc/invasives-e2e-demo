@@ -2,7 +2,7 @@
 
 ## Setup of KeyCloak
 
-Using a `non-prod` KeyCloak Realm, follow instructions as per https://developers.redhat.com/blog/2020/01/29/api-login-and-jwt-token-generation-using-keycloak/ to set up a specific KeyCloak Client using:
+Using a `non-prod` KeyCloak Realm, follow instructions as per this [article](https://developers.redhat.com/blog/2020/01/29/api-login-and-jwt-token-generation-using-keycloak/) to set up a specific KeyCloak Client using:
 
 - `Direct Grant` Flow and
 - `Client Id and Secret` Credentials
@@ -17,11 +17,18 @@ Customize the credentials for your application.
 
 - copy [sample.cypress.env.json](./sample.cypress.env.json) to `cypress.env.json`
 - set the variable values, including `auth_client_id` and `auth_client_secret` from the previous step
+- configure the `baseURL` for your application in the [config file](./cypress/plugins/index.js)
 
 ## Local Install
 
-- clone this repo
-- `npm install`
-- `npm run test:e2e`
+Clone the repo, install dependencies and run Cypress tests
+
+```bash
+git clone git@github.com:garywong-bc/invasives-e2e-demo.git && cd invasives-e2e-demo
+npm install
+npm run test:e2e`
+```
 
 ## Docker Test
+
+TODO - Document how to run Cypress e2e tests through a docker container.
