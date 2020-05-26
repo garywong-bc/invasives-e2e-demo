@@ -1,4 +1,4 @@
-describe('/add', () => {
+describe('/create/chemical', () => {
   beforeEach(() => {
     cy.svcClientLogout();
     cy.svcClientLogin().as('tokens');
@@ -6,3 +6,8 @@ describe('/add', () => {
       cy.svcClientSetCookie(tokens);
     });
   });
+
+  it('Dummy placholder test', function () {
+    expect(true).to.equal(true);
+  });
+});
