@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "cypress": "cypress open",
-    "test:e2e": "cypress open"
+    "test:e2e": "cypress run",
+    "test:example": "cypress run --spec cypress/integration/inv-add-entry/nav_plant_obs.spec.js"
   },
   "author": "Gary Wong <garywong@gov.bc.ca>",
   "license": "Apache-2.0",
