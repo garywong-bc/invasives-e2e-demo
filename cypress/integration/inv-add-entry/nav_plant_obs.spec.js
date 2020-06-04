@@ -7,7 +7,7 @@ describe('/add', () => {
     });
   });
 
-  it.only('navigates to xx on successful submission', () => {
+  it.only('navigates to Observation on successful submission', () => {
     cy.visit({
       url: '/add',
     });
