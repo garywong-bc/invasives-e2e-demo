@@ -14,15 +14,11 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  console.log(config) // see what all is in here!
+  console.log(config); // see what all is in here!
 
   // modify config values
-  config.defaultCommandTimeout = 10000
-  config.baseUrl = 'https://dev-invasivesbc.pathfinder.gov.bc.ca'
-
-  // modify env var value
-  config.env.ENVIRONMENT = 'dev'
+  config.defaultCommandTimeout = 10000;
 
   // return config
-  return config
-}
+  return config;
+};
