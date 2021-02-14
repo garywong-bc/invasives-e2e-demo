@@ -13,11 +13,12 @@ Note the Client ID and Client Secret (under the `Credentials` tab), as you'll ne
 
 ## Local Install
 
-Clone the repo, install dependencies and run Cypress tests
+Clone the repo, install dependencies and run Cypress tests by copying and pasting these lines:
 
 ```bash
-git clone git@github.com:garywong-bc/invasives-e2e-demo.git && cd invasives-e2e-demo
-npm install
+git clone https://github.com/garywong-bc/invasives-e2e-demo.git \
+&& cd invasives-e2e-demo \
+&& npm install
 ```
 
 ### Application Setup
